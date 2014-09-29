@@ -1,8 +1,10 @@
 <%if @restaurants.any? %>
 	<%@restaurants.each do |restaurant| %>
-		<%= restaurant.name %>
-		<%= restaurant.description %>
-		<%= restaurant.rating %>
+		<ul class="restaurant">
+			 <li class="name"> <%=link_to restaurant.name, restaurant_path(restaurant)%></li>
+		<li class="description"><%= restaurant.description %></li>
+		<li class="rating"><%= restaurant.rating %></li>
+		</ul>
 	<%end%>
 <%else %>
 	<h1>No restaurants</h1>
