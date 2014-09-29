@@ -2,7 +2,6 @@ require 'rails_helper'
 
 # >>> Debugging = save_and_open_page
 
-
 describe 'reviews' do
 	before do 
 		@restaurant = Restaurant.create(name: 'Shithole', description: 'Shit served hot', rating: 5)
