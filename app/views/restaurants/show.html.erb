@@ -1,2 +1,12 @@
 <h1><%=@restaurant.name %></h1>
 <p><%=@restaurant.description %></p>
+<p><%=@restaurant.rating %></p>
+
+
+<% if !@restaurant.reviews.any? %>
+	<p>No reviews</p>
+<% else %>
+	<% @restaurant.reviews.each do |review|%>
+	<li><%= review.content%></li>
+	<% end %>
+<% end %>
