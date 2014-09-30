@@ -1,6 +1,4 @@
-<% if @users.any? %>
-	<h1>Welcome <%= @user.username %>!</h1>
-<% end %>
+
 
 <%if @restaurants.any? %>
 	<%@restaurants.each do |restaurant| %>
@@ -14,4 +12,4 @@
 	<h1>No restaurants</h1>
 <%end%>
 
-<a href="/restaurants/new">Create restaurant</a>ra
+<a href="/restaurants/new">Create restaurant</a>
