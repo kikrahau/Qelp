@@ -24,4 +24,23 @@ describe 'user ' do
 			expect(page).to have_content('Signed in successfully.')
 		end
 	end
+
+	context 'user forgets password' do
+	before do
+	  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
+	end 
+		it 'can type in her/his email to receive a mail with password reset instructions' do
+			visit '/restaurants'
+			click_link('Login')
+			click_link('Forgot your password?')
+			expect(page.current_path).to eq '/users/password/new'
+		end
+
+		it 'is sent a mail with password reset instructions' do
+			visit '/users/password/new'
+			fill_in('Email', with: 'ethel@gmail.com')
+			click_button('Send me reset password instructions')
+			expect(page).to have_content("You will receive an email with instructions on how to reset your password in a few minutes.")
+		end
+	end
 end
