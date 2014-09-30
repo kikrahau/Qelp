@@ -26,9 +26,18 @@ describe 'restaurant reviews' do
 		it 'has fields for writing the review and rating the restaurant on a scale' do
 			visit "/restaurants/#{@restaurant.id}"
 			click_link('Leave Review')
-			expect(page).to have_field('Review')
-			expect(page).to have_field('Rating')
+			expect(page).to have_field('review[content]')
+			expect(page).to have_field('review[rating]')
 			expect(page).to have_button('Post Review')
 		end
+		it 'saves new review to the database' do
+			visit "/restaurants/#{@restaurant.id}"
+			click_link('Leave Review')
+			fill_in('review[content]', with: 'Awesome Restaurant')
+			fill_in('review[rating]', with: 5)
+			click_button("Post Review")
+			expect(@restaurant.reviews.last.content).to eq('Awesome Restaurant')
+		end
+
 	end
 end
