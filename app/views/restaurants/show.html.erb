@@ -9,6 +9,6 @@
 	<% @restaurant.reviews.each do |review|%>
 	<li><%= review.content%></li>
 	<% end %>
+<% end %>
 
 <p><%= link_to 'Leave Review', new_restaurant_review_path(@restaurant) %></p>
-<% end %>
