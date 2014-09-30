@@ -1,5 +1,17 @@
+<%if @restaurant.errors.any? %>
+<section id="errors_explanation">
+	<p>
+		<%pluralize(@restaurant.errors.count, "error")%> prohibited this restaurant from being saved
+	</p>
+	<ul>
+		<% @restaurant.errors.full_messages.each do |message|%>
+		<li><%= message%></li>
+		<%end%>
+	</ul>
+</section>
+<%end%>
 <%= form_for @restaurant, url: {action: "create"}, html: {class: "restaurant_form"} do |f| %>
-  <%= f.label :name %>
+  <%= f.label :name%>
   <%= f.text_field :name %>
   <%= f.label :description %>
   <%= f.text_area :description, size: "60x12" %>
