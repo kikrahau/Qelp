@@ -29,7 +29,17 @@ describe 'restaurant' do
 		end
 	end
 
-	context 'add restaurants' do 
+	context 'add restaurants' do
+
+		before do
+		  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
+		  visit '/restaurants'
+		  click_link 'Login'
+		  fill_in 'Email', with: 'ethel@gmail.com'
+		  fill_in 'Password', with: '12345678'
+		  click_button 'Log in'
+		end
+
 		it 'has a form' do 
 			visit '/restaurants/new'
 			expect(page).to have_css('form')

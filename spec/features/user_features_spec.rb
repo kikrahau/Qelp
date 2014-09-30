@@ -2,9 +2,11 @@ require 'rails_helper'
 
 describe 'user ' do 
 	context 'user signs up' do
-	before do
-	  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
-	end
+		
+		before do
+		  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
+		end
+
 		it 'has a sign up form' do 
 			visit '/restaurants'
 			click_link('Register')
@@ -15,7 +17,7 @@ describe 'user ' do
 			expect(page).to have_content('Welcome! You have signed up successfully.')
 		end
 
-		it 'has a sign up form' do 
+		it 'has a sign in form' do 
 			visit '/restaurants'
 			click_link('Login')
 			fill_in('Email', with: 'ethel@gmail.com')
@@ -23,6 +25,20 @@ describe 'user ' do
 			click_button('Log in')
 			expect(page).to have_content('Signed in successfully.')
 		end
+	end
+
+	context 'features for logged-in users' do
+
+		before do
+		  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
+		end
+
+		it 'can only create a restaurant when logged in' do
+			visit '/restaurants'
+			click_link 'Create restaurant'
+			expect(page).to have_content('Please log in or sign up for an account.')
+		end
+
 	end
 
 	context 'user forgets password' do

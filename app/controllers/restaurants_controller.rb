@@ -1,13 +1,16 @@
 class RestaurantsController < ApplicationController
 
 	def index
-		# @users = User.all
-		# @user = User.first
 		@restaurants = Restaurant.all
 	end
 
 	def new
-		@restaurant = Restaurant.new
+		if user_signed_in?
+			@restaurant = Restaurant.new
+		else
+			flash[:notice] = "Please log in or sign up for an account."
+			redirect_to new_user_session_path
+		end
 	end
 
 	def create
