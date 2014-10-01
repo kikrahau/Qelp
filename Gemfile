@@ -28,11 +28,15 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 #testing Gems
-gem 'rspec-rails', group: :test
-gem 'capybara', group: :test
-gem 'rspec-collection_matchers', group: :test
-gem 'timecop', group: :test
-gem 'factory_girl_rails', group: :test
+group :development,:test do 
+	gem 'rspec-rails'
+	gem 'capybara'
+	gem 'rspec-collection_matchers'
+	gem 'timecop'
+	gem 'factory_girl_rails'
+	gem 'poltergeist'
+	gem 'database_cleaner'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

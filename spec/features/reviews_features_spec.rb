@@ -6,11 +6,8 @@ describe 'restaurant reviews' do
 		before do 
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
 			visit '/'
-			click_link('Register')
-			fill_in('Email', with: "ethel@123.com")
-			fill_in('Password', with: "password123")
-			fill_in('Password confirmation', with: "password123")
-			click_button('Sign up')
+			user = create(:user)	
+	  		login_as(user, :scope => :user)
 			leave_review('horrible stuff, will never eat there again',1)
 			leave_review('great stuff, will eat there again',1)
 		end
@@ -41,10 +38,7 @@ describe 'restaurant reviews' do
 
 		it 'saves new review to the database' do
 			visit "/restaurants/#{@restaurant.id}"
-			click_link('Leave Review')
-			fill_in('review[content]', with: 'Awesome Restaurant')
-			fill_in('review[rating]', with: 5)
-			click_button("Post Review")
+			leave_review("Awesome Restaurant", 5)
 			expect(@restaurant.reviews.last.content).to eq('Awesome Restaurant')
 		end
 
@@ -52,20 +46,15 @@ describe 'restaurant reviews' do
 
 	context 'invalid review' do
 		before do 
-			@restaurant = Restaurant.create(name: 'KFC', description: 'This is an awesome restaurant')
+			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			visit '/'
-			click_link('Register')
-			fill_in('Email', with: "ethel@123.com")
-			fill_in('Password', with: "password123")
-			fill_in('Password confirmation', with: "password123")
-			click_button('Sign up')
+			user = create(:user)	
+	  		login_as(user, :scope => :user)
 		end
 
 		it 'displays an error if rating is not provided' do
 			visit "/restaurants/#{@restaurant.id}"
-			click_link('Leave Review')
-			fill_in('review[content]', with: 'Awesome Restaurant')
-			click_button("Post Review")
+			leave_review("Awesome Restaurant")
 			expect(page).to have_content('Rating can\'t be blank')
 		end
 	end
@@ -74,19 +63,15 @@ describe 'restaurant reviews' do
 
 		before do
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
-			visit '/'
-			click_link('Register')
-			fill_in('Email', with: "ethel@123.com")
-			fill_in('Password', with: "password123")
-			fill_in('Password confirmation', with: "password123")
-			click_button('Sign up')
+			user = create(:user)	
+	  		login_as(user, :scope => :user)
 		end
 
 		it 'displays the email of the user next to the review' do 
 			visit "/restaurants/#{@restaurant.id}"
 			leave_review('horrible stuff, will never eat there again',1)
 			within(:css, '.review:first-of-type') do
-				expect(page).to have_content 'ethel@123.com'
+				expect(page).to have_content 'ethel@factorygirl.com'
 			end
 		end
 	end

@@ -1,4 +1,4 @@
-def leave_review(content,rating)
+def leave_review(content,rating = "")
 	visit '/restaurants'
 	click_link 'Spitzweg'
 	click_link 'Leave Review'
