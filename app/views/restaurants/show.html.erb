@@ -7,7 +7,7 @@
 	<p>No reviews</p>
 <% else %>
 	<% @restaurant.reviews.each do |review|%>
-	<li><%= review.content%></li>
+	<li><%= review.content%> posted <%= time_ago_in_words(review.created_at) %> ago</li>
 	<% end %>
 <% end %>
 

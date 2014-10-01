@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'timecop'
 
 # >>> Debugging = save_and_open_page
 
@@ -85,6 +86,18 @@ describe 'restaurant' do
 			click_button('Update Restaurant')
 		end
 	end
+end
+
+describe 'restaurant ratings' do
+
+	def leave_review(content,rating)
+		visit '/restaurants'
+		click_link 'Spitzweg'
+		click_link 'Leave Review'
+		fill_in 'Content', with: content
+		fill_in 'Rating', with: rating
+		click_button 'Post Review'
+	end
 
 	context 'display average rating' do 
 		before do 
@@ -96,12 +109,27 @@ describe 'restaurant' do
 			visit '/restaurants'
 			expect(page).to have_content '★★★★☆'
 		end
-
-		def leave_review(content,rating)
-			@restaurant.reviews.create(content: content, rating: rating)
-		end
 	end
 
-	
-end
+	context 'display timestamp' do
 
+		it 'shows the time each review was posted' do
+			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
+			Timecop.freeze(Time.new(2014))
+			leave_review('wow', 4)
+			Timecop.travel(1)
+			visit "/restaurants/#{@restaurant.id}"
+			expect(page).to have_content 'posted less than a minute ago'
+		end
+
+		it 'shows the time each review was posted' do
+			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
+			Timecop.freeze(Time.new(2014))
+			leave_review('wow', 4)
+			Timecop.travel(1801)
+			visit "/restaurants/#{@restaurant.id}"
+			expect(page).to have_content 'posted 30 minutes ago'
+		end
+
+	end
+end

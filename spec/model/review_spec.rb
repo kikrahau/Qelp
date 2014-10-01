@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Restaurant, type: :model do
+RSpec.describe Review, type: :model do
 
   it 'is not valid without a rating' do
     review = Review.new(content: 'Average')

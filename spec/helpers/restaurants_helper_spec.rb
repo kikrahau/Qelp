@@ -13,6 +13,4 @@ RSpec.describe RestaurantsHelper, :type => :helper do
 			expect(helper.star_rating(2.3)).to eq "★★★☆☆"
 		end
 	end
-
-	context
 end
