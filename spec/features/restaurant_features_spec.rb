@@ -34,12 +34,8 @@ describe 'restaurant' do
 	context 'add restaurants' do
 
 		before do
-		  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
-		  visit '/restaurants'
-		  click_link 'Login'
-		  fill_in 'Email', with: 'ethel@gmail.com'
-		  fill_in 'Password', with: '12345678'
-		  click_button 'Log in'
+		  user = create(:user)
+		  login_as(user, :scope => :user)
 		end
 
 		it 'has a form' do 
@@ -70,12 +66,8 @@ describe 'restaurant' do
 	context 'editing restaurants' do
 		before do
 			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
-			user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
-			visit '/restaurants'
-			click_link 'Login'
-			fill_in 'Email', with: 'ethel@gmail.com'
-			fill_in 'Password', with: '12345678'
-			click_button 'Log in'
+			user = create(:user)	
+		  	login_as(user, :scope => :user)
 		end
 		it 'can be edited' do
 			visit "/restaurants"
@@ -102,6 +94,8 @@ describe 'restaurant ratings' do
 	context 'display average rating' do 
 		before do 
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
+			user = create(:user)	
+	  		login_as(user, :scope => :user)
 		end
 
 		it 'displays an average rating in form of stars' do 
@@ -112,9 +106,13 @@ describe 'restaurant ratings' do
 	end
 
 	context 'display timestamp' do
+		before do 
+			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
+			user = create(:user)	
+	  		login_as(user, :scope => :user)
+		end
 
 		it 'shows the time each review was posted' do
-			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			Timecop.freeze(Time.new(2014))
 			leave_review('wow', 4)
 			Timecop.travel(1)
@@ -123,7 +121,6 @@ describe 'restaurant ratings' do
 		end
 
 		it 'shows the time each review was posted' do
-			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			Timecop.freeze(Time.new(2014))
 			leave_review('wow', 4)
 			Timecop.travel(1801)

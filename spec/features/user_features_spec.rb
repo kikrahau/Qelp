@@ -27,10 +27,9 @@ describe 'user ' do
 		end
 	end
 
-	context 'features for logged-in users' do
-
+	context 'restrictions for logged out users' do
 		before do
-		  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
+			@restaurant = Restaurant.create(name: "Ethel's authentic Ramen Hut", description: 'Average ramen, not too good, had better ones in London, the one vincent recommended was far better, but keep it up Ethel!', rating: 3)
 		end
 
 		it 'can only create a restaurant when logged in' do
@@ -39,12 +38,26 @@ describe 'user ' do
 			expect(page).to have_content('Please log in or sign up for an account.')
 		end
 
+		it'can only edit a restaurant when logged in' do
+			visit '/restaurants'
+			click_button 'Edit'
+			expect(page).to have_content('Please log in or sign up for an account.')			
+		end
+
+		it 'can only review restaurants, when logged in' do
+			visit "/restaurants/#{@restaurant.id}"
+			click_link 'Leave Review'
+			expect(page).to have_content('Please log in or sign up for an account.')			
+
+		end
+
 	end
 
 	context 'user forgets password' do
-	before do
-	  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
-	end 
+		before do
+		  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
+		end
+
 		it 'can type in her/his email to receive a mail with password reset instructions' do
 			visit '/restaurants'
 			click_link('Login')

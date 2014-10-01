@@ -7,6 +7,8 @@ describe 'restaurant reviews' do
 			@restaurant.reviews.create(content: "awesome", rating: 5)
 			@restaurant.reviews.create(content: "horrible", rating: 1)
 			@restaurant.reviews.create(content: "mediocre", rating: 3)
+			user = create(:user)	
+		  	login_as(user, :scope => :user)
 		end
 		it 'has its own profile page' do 
 			visit "/restaurants/#{@restaurant.id}"
@@ -48,6 +50,8 @@ describe 'restaurant reviews' do
 	context 'invalid review' do
 		before do 
 			@restaurant = Restaurant.create(name: 'KFC', description: 'This is an awesome restaurant')
+			user = create(:user)	
+		  	login_as(user, :scope => :user)
 		end
 
 		it 'displays an error if rating is not provided' do
