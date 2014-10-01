@@ -12,6 +12,7 @@ describe 'restaurant' do
 			expect(page).to have_link('Create restaurant')
 		end
 	end
+	
 	context 'restaurants have been added' do 
 		before do 
 			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
