@@ -48,7 +48,12 @@ describe 'user ' do
 			visit "/restaurants/#{@restaurant.id}"
 			click_link 'Leave Review'
 			expect(page).to have_content('Please log in or sign up for an account.')			
+		end
 
+		it 'can only delete restaurants, when logged in' do
+			visit "/restaurants"
+			click_button 'Delete'
+			expect(page).to have_content('Please log in or sign up for an account.')			
 		end
 
 	end

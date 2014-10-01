@@ -1,13 +1,13 @@
 <h1><%=@restaurant.name %></h1>
 <p><%=@restaurant.description %></p>
-<p><%=@restaurant.rating %></p>
+<p>Average Rating &nbsp;<%= star_rating(@restaurant.average_rating) %></p>
 
 
 <% if !@restaurant.reviews.any? %>
 	<p>No reviews</p>
 <% else %>
 	<% @restaurant.reviews.each do |review|%>
-	<li><%= review.content%> posted <%= time_ago_in_words(review.created_at) %> ago</li>
+	<li class='review'><%= star_rating(review.rating) %> <%= review.content%><i>  - posted <%= time_ago_in_words(review.created_at) %> ago</li></i>
 	<% end %>
 <% end %>
 

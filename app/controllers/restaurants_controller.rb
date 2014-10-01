@@ -35,6 +35,18 @@ class RestaurantsController < ApplicationController
 		end
 	end
 
+	def destroy
+		if user_signed_in?
+			@restaurant = Restaurant.find(params[:id])
+			@restaurant.destroy
+			redirect_to restaurants_path
+
+		else
+			flash[:notice] = "Please log in or sign up for an account."
+			redirect_to new_user_session_path
+		end
+	end
+
 	def update
 		@restaurant = Restaurant.find(params[:id])
 		@restaurant.update(restaurant_params)

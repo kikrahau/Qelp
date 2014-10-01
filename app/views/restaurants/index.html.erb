@@ -5,6 +5,7 @@
 		<li class="description"><%= restaurant.description %></li>
 		<li class="rating"><%= star_rating(restaurant.average_rating) %></li>
 		<%= button_to 'Edit' , edit_restaurant_path(restaurant), method: :get%>
+		<%= button_to 'Delete' , restaurant_path(restaurant), method: :delete%>
 		</ul>
 	<%end%>
 <%else %>

@@ -76,6 +76,19 @@ describe 'restaurant' do
 			fill_in('restaurant[description]', with: 'Shit restaurant')
 			fill_in('restaurant[rating]', with: '1')
 			click_button('Update Restaurant')
+			expect(page).to have_content('McDonalds')
+		end
+	end
+	context 'deleting restaurants' do
+		before do
+			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
+			user = create(:user)	
+		  	login_as(user, :scope => :user)
+		end
+		it 'can be deleted' do
+			visit "/restaurants"
+			click_button('Delete')
+			expect(page).not_to have_content('Spitzweg')
 		end
 	end
 end

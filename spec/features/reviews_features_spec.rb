@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative '../helpers/application_helper'
 
 describe 'restaurant reviews' do
 	context 'restaurant profile page' do
@@ -60,6 +61,23 @@ describe 'restaurant reviews' do
 			fill_in('review[content]', with: 'Awesome Restaurant')
 			click_button("Post Review")
 			expect(page).to have_content('Rating can\'t be blank')
+		end
+	end
+
+	context 'user details of the author of the review' do
+
+		before do
+			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
+			user = create(:user)	
+		  	login_as(user, :scope => :user)
+		end
+
+		it 'displays the email of the user next to the review' do 
+			visit "/restaurants/#{@restaurant.id}"
+			leave_review('horrible stuff, will never eat there again',1)
+			within(:css, '.review:first-of-type') do
+				expect(page).to have_content 'ethel@factorygirl.com'
+			end
 		end
 	end
 end

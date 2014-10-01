@@ -11,5 +11,5 @@ RSpec.describe Review, type: :model do
     review = Review.new(content: 'Average', rating: 100)
     expect(review).to have(1).error_on(:rating)
   end
-
+  
 end

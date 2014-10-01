@@ -1,7 +1,7 @@
 module RestaurantsHelper
 
 	def star_rating(rating)
-		if rating == 'No reviews yet'
+		if !rating.respond_to?(:round)
 			"☆☆☆☆☆"
 		else 
 			"★"*rating.ceil + "☆"*(5-rating).floor
