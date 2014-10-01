@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative '../helpers/application_helper'
 require 'timecop'
 
 describe 'display timestamp' do

@@ -29,7 +29,7 @@ describe 'user ' do
 
 	context 'restrictions for logged out users' do
 		before do
-			@restaurant = Restaurant.create(name: "Ethel's authentic Ramen Hut", description: 'Average ramen, not too good, had better ones in London, the one vincent recommended was far better, but keep it up Ethel!', rating: 3)
+			@restaurant = Restaurant.create(name: "Ethel's authentic Ramen Hut", description: 'Average ramen, not too good, had better ones in London, the one vincent recommended was far better, but keep it up Ethel!')
 		end
 
 		it 'can only create a restaurant when logged in' do

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'reviews' do
 	before do 
-		@restaurant = Restaurant.create(name: 'Shithole', description: 'Shit served hot', rating: 5)
+		@restaurant = Restaurant.create(name: 'Shithole', description: 'Shit served hot')
 	end
 
 	it 'is possible to review a restaurant' do 

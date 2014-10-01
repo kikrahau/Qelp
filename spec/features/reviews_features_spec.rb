@@ -4,7 +4,7 @@ require_relative '../helpers/application_helper'
 describe 'restaurant reviews' do
 	context 'restaurant profile page' do
 		before do 
-			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
+			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			visit '/'
 			user = create(:user)	
 	  		login_as(user, :scope => :user)

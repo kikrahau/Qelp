@@ -9,7 +9,6 @@ describe 'endorsements' do
 			user = create(:user)	
 		  	login_as(user, :scope => :user)
 		  	leave_review('horrible stuff, will never eat there again',1)
-
 		end
 		it 'shows 0 endorsements of a review, if not endorsed', js: true do 
 			visit "/restaurants/#{@restaurant.id}"

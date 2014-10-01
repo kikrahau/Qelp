@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require_relative '../helpers/application_helper'
 # >>> Debugging = save_and_open_page
 
 
@@ -15,7 +15,7 @@ describe 'restaurant' do
 	
 	context 'restaurants have been added' do 
 		before do 
-			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
+			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 		end
 
 		it 'shows one restaurant' do 
@@ -46,7 +46,6 @@ describe 'restaurant' do
 			visit '/restaurants/new'
 			fill_in('restaurant[name]', with: 'McDonalds')
 			fill_in('restaurant[description]', with: 'Shit restaurant')
-			fill_in('restaurant[rating]', with: '1')
 			click_button('Create')
 			expect(page).to have_content('McDonalds')
 			expect(page).not_to have_content('No restaurants')
@@ -56,7 +55,6 @@ describe 'restaurant' do
 			visit '/restaurants/new'
 			fill_in('restaurant[name]', with: 'Mc')
 			fill_in('restaurant[description]', with: 'Shit restaurant')
-			fill_in('restaurant[rating]', with: '1')
 			click_button('Create')
 			expect(page).to have_content('Name is too short')
 		end
@@ -64,7 +62,7 @@ describe 'restaurant' do
 
 	context 'editing restaurants' do
 		before do
-			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
+			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			user = create(:user)	
 		  	login_as(user, :scope => :user)
 		end
@@ -73,14 +71,13 @@ describe 'restaurant' do
 			click_button('Edit')
 		 	fill_in('restaurant[name]', with: 'McDonalds')
 			fill_in('restaurant[description]', with: 'Shit restaurant')
-			fill_in('restaurant[rating]', with: '1')
 			click_button('Update Restaurant')
 			expect(page).to have_content('McDonalds')
 		end
 	end
 	context 'deleting restaurants' do
 		before do
-			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
+			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			user = create(:user)	
 		  	login_as(user, :scope => :user)
 		end
@@ -93,16 +90,6 @@ describe 'restaurant' do
 end
 
 describe 'restaurant ratings' do
-
-	def leave_review(content,rating)
-		visit '/restaurants'
-		click_link 'Spitzweg'
-		click_link 'Leave Review'
-		fill_in 'Content', with: content
-		fill_in 'Rating', with: rating
-		click_button 'Post Review'
-	end
-
 	context 'display average rating' do 
 		before do 
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
