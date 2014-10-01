@@ -1,12 +1,10 @@
-
-
 <%if @restaurants.any? %>
 	<%@restaurants.each do |restaurant| %>
 		<ul class="restaurant">
 			 <li class="name"> <%=link_to restaurant.name, restaurant_path(restaurant)%></li>
 		<li class="description"><%= restaurant.description %></li>
-		<li class="rating"><%= restaurant.rating %></li>
-		<%= button_to 'Edit' , edit_restaurant_path(restaurant)%>
+		<li class="rating"><%= star_rating(restaurant.average_rating) %></li>
+		<%= button_to 'Edit' , edit_restaurant_path(restaurant), method: :get%>
 		</ul>
 	<%end%>
 <%else %>

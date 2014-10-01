@@ -67,14 +67,41 @@ describe 'restaurant' do
 	end
 
 	context 'editing restaurants' do
+		before do
+			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', rating: 5)
+			user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
+			visit '/restaurants'
+			click_link 'Login'
+			fill_in 'Email', with: 'ethel@gmail.com'
+			fill_in 'Password', with: '12345678'
+			click_button 'Log in'
+		end
 		it 'can be edited' do
 			visit "/restaurants"
 			click_button('Edit')
 		 	fill_in('restaurant[name]', with: 'McDonalds')
 			fill_in('restaurant[description]', with: 'Shit restaurant')
 			fill_in('restaurant[rating]', with: '1')
-			click_button('Update')
+			click_button('Update Restaurant')
 		end
 	end
+
+	context 'display average rating' do 
+		before do 
+			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
+		end
+
+		it 'displays an average rating in form of stars' do 
+			leave_review('wow', 4)
+			visit '/restaurants'
+			expect(page).to have_content '★★★★☆'
+		end
+
+		def leave_review(content,rating)
+			@restaurant.reviews.create(content: content, rating: rating)
+		end
+	end
+
+	
 end
 

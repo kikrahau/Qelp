@@ -11,4 +11,32 @@ RSpec.describe Restaurant, type: :model do
 		restaurant = Restaurant.new(name: "Ethel's café")
 		expect(restaurant).to have(1).error_on(:name)
 	end
+
+	describe 'average rating' do 
+		context 'no reviews' do 
+			it 'returns No Reviews' do 
+				restaurant = Restaurant.create(name: "Ethel's Steak House")
+				expect(restaurant.average_rating).to eq('No reviews yet')
+			end
+		end
+		context 'only one review' do 
+			it 'returns the rating of one review' do 
+				restaurant = Restaurant.create(name: "Ethel's Steak House")
+				restaurant.reviews.create(rating: 4)
+				expect(restaurant.average_rating).to eq 4
+			end
+		end
+		context 'several reviews' do 
+			it 'returns the average of all ratings' do 
+				restaurant = Restaurant.create(name: "Ethel's Steak House")
+				restaurant.reviews.create(rating: 4)
+				restaurant.reviews.create(rating: 2)
+				expect(restaurant.average_rating).to eq 3
+			end
+		end
+
+		context ''
+
+
+	end
 end
