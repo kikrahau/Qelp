@@ -55,10 +55,10 @@ describe 'restaurant' do
 		end
 	end
 
-	xcontext 'editing restaurants' do
+	context 'editing restaurants' do
 		it 'can be edited' do
 			visit "/restaurants"
-			click_button('edit')
+			click_button('Edit')
 		 	fill_in('restaurant[name]', with: 'McDonalds')
 			fill_in('restaurant[description]', with: 'Shit restaurant')
 			fill_in('restaurant[rating]', with: '1')

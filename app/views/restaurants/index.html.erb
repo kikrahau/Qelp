@@ -6,10 +6,11 @@
 			 <li class="name"> <%=link_to restaurant.name, restaurant_path(restaurant)%></li>
 		<li class="description"><%= restaurant.description %></li>
 		<li class="rating"><%= restaurant.rating %></li>
+		<%= button_to 'Edit' , edit_restaurant_path(restaurant)%>
 		</ul>
 	<%end%>
 <%else %>
 	<h1>No restaurants</h1>
 <%end%>
 
-<a href="/restaurants/new">Create restaurant</a>
+<%= link_to 'Create restaurant', new_restaurant_path %>
