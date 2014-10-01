@@ -7,7 +7,10 @@
 	<p>No reviews</p>
 <% else %>
 	<% @restaurant.reviews.each do |review|%>
-	<li class='review'><%= star_rating(review.rating) %> <%= review.content%><i>  - posted by <%= User.find(review.user_id).email %> <%= time_ago_in_words(review.created_at) %> ago</i> <%= link_to 'Endorse', review_endorsements_path(review), class: 'endorsement-link' %> <span class='endorsement-count'> <%= review.endorsements.count %> </span> endorsements </li>
+	<li class='review'><%= star_rating(review.rating) %> <%= review.content%><i>  - posted by <%= User.find(review.user_id).email %> <%= time_ago_in_words(review.created_at) %> ago</i> <%= link_to 'Endorse', review_endorsements_path(review), class: 'endorsement-link' %> 
+		<span class='endorsement-count'> <%= review.endorsements.count %> 
+		</span> 
+		</li>
 	<% end %>
 <% end %>
 
