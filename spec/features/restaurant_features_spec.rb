@@ -130,7 +130,7 @@ describe 'restaurant ratings' do
 			leave_review('wow', 4)
 			Timecop.travel(1)
 			visit "/restaurants/#{@restaurant.id}"
-			expect(page).to have_content 'posted less than a minute ago'
+			expect(page).to have_content 'less than a minute ago'
 		end
 
 		it 'shows the time each review was posted' do
@@ -138,7 +138,7 @@ describe 'restaurant ratings' do
 			leave_review('wow', 4)
 			Timecop.travel(1801)
 			visit "/restaurants/#{@restaurant.id}"
-			expect(page).to have_content 'posted 30 minutes ago'
+			expect(page).to have_content '30 minutes ago'
 		end
 
 	end
