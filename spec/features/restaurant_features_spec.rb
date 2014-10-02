@@ -32,13 +32,22 @@ describe 'restaurant' do
 	context 'add restaurants' do
 
 		before do
-		  user1 = create(:user1)
-		  login_as(user1, :scope => :user)
+			user1 = create(:user1)
+			login_as(user1, :scope => :user)
 		end
 
 		it 'has a form' do 
 			visit '/restaurants/new'
 			expect(page).to have_css('form')
+		end
+
+		it 'can upload images for the restaurant' do 
+			visit '/restaurants/new'
+			fill_in('restaurant[name]', with: 'McDonalds')
+			fill_in('restaurant[description]', with: 'Shit restaurant')
+  			attach_file "restaurant[image]", 'spec/fixtures/images/hd_logo.gif'
+			click_button('Create Restaurant')
+			expect(page).to have_selector("img")
 		end
 
 		it 'when form is filled in, it shows the restaurant' do

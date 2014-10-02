@@ -25,6 +25,13 @@ describe 'user ' do
 			click_button('Log in')
 			expect(page).to have_content('Signed in successfully.')
 		end
+
+		it 'has an option to sign in with Facebook' do
+			visit '/restaurants'
+			click_link('Login')
+			expect(page).to have_content('Sign in with Facebook')
+		end
+
 	end
 
 	context 'restrictions for logged out users' do

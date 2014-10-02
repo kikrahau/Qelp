@@ -1,7 +1,7 @@
 <%if @restaurant.errors.any? %>
 <section id="errors_explanation">
 	<p>
-		<%pluralize(@restaurant.errors.count, "error")%> prohibited this restaurant from being saved
+		<%= pluralize(@restaurant.errors.count, "error")%> prohibited this restaurant from being saved
 	</p>
 	<ul>
 		<% @restaurant.errors.full_messages.each do |message|%>
@@ -10,7 +10,7 @@
 	</ul>
 </section>
 <%end%>
-<%= form_for @restaurant do |f| %>
+<%= form_for @restaurant, :html => { :multipart => true } do |f| %>
   <%= f.label :name%>
   <%= f.text_field :name %>
   <%= f.label :description %>
@@ -21,5 +21,6 @@
   <%= f.text_field :location %>
   <%= f.label :Average_price_per_meal%>
   <%= f.text_field :price %>
+  <%= f.file_field :image %>
   <%= f.submit %>
 <% end %>
