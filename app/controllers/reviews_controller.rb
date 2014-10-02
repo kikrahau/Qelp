@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
 		if user_signed_in?
 			@restaurant = Restaurant.find(params[:restaurant_id])
 			@review = Review.new
-			if !Review.find_by(user_id: current_user.id).nil?
+			if @restaurant.reviews.find_by(user_id: current_user.id).nil?
 				flash[:notice] = "Can't review a restaurant more than once."
 				redirect_to restaurant_path(@restaurant) 
 			end
