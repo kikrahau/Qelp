@@ -6,24 +6,23 @@ describe 'restaurant reviews' do
 		before do 
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			visit '/'
-			user = create(:user)	
-	  		login_as(user, :scope => :user)
+			user1 = create(:user1)	
+	  		login_as(user1, :scope => :user)
 			leave_review('horrible stuff, will never eat there again',1)
+	  		user2 = create(:user2)
+	  		login_as(user2, :scope => :user)
 			leave_review('great stuff, will eat there again',1)
+			user3 = create(:user3)
+			login_as(user3, scope: :user)
 		end
-		it 'has its own profile page' do 
-			visit "/restaurants/#{@restaurant.id}"
-			expect(page).to have_content('Spitzweg')
-			expect(page).to have_content('This is an awesome restaurant')
-		end
-
+	
 		it 'has all its reviews printed on its page' do 
 			visit "/restaurants/#{@restaurant.id}"
 			expect(page).to have_content("great")
 			expect(page).to have_content("horrible")
 		end
 
-		it 'has all its reviews printed on its page' do 
+		it 'has a link to leave a review' do 
 			visit "/restaurants/#{@restaurant.id}"
 			expect(page).to have_link('Leave Review')
 		end
@@ -48,8 +47,8 @@ describe 'restaurant reviews' do
 		before do 
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
 			visit '/'
-			user = create(:user)	
-	  		login_as(user, :scope => :user)
+			user1 = create(:user1)	
+	  		login_as(user1, :scope => :user)
 		end
 
 		it 'displays an error if rating is not provided' do
@@ -57,14 +56,21 @@ describe 'restaurant reviews' do
 			leave_review("Awesome Restaurant")
 			expect(page).to have_content('Rating can\'t be blank')
 		end
+
+		it 'it displays an error if a user is trying to review a restaurant more than once' do 
+			visit "/restaurants/#{@restaurant.id}"
+			leave_review("Awesome Restaurant", 5)
+			click_link "Leave Review"
+			expect(page).to have_content("Can't review a restaurant more than once.")
+		end
 	end
 
 	context 'user details of the author of the review' do
 
 		before do
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
-			user = create(:user)	
-	  		login_as(user, :scope => :user)
+			user1 = create(:user1)	
+	  		login_as(user1, :scope => :user)
 		end
 
 		it 'displays the email of the user next to the review' do 

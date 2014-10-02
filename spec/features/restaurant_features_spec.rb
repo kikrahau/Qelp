@@ -33,8 +33,8 @@ describe 'restaurant' do
 	context 'add restaurants' do
 
 		before do
-		  user = create(:user)
-		  login_as(user, :scope => :user)
+		  user1 = create(:user1)
+		  login_as(user1, :scope => :user)
 		end
 
 		it 'has a form' do 
@@ -63,8 +63,8 @@ describe 'restaurant' do
 	context 'editing restaurants' do
 		before do
 			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
-			user = create(:user)	
-		  	login_as(user, :scope => :user)
+			user1 = create(:user1)	
+		  	login_as(user1, :scope => :user)
 		end
 		it 'can be edited' do
 			visit "/restaurants"
@@ -75,11 +75,12 @@ describe 'restaurant' do
 			expect(page).to have_content('McDonalds')
 		end
 	end
+
 	context 'deleting restaurants' do
 		before do
 			Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
-			user = create(:user)	
-		  	login_as(user, :scope => :user)
+			user1 = create(:user1)	
+		  	login_as(user1, :scope => :user)
 		end
 		it 'can be deleted' do
 			visit "/restaurants"
@@ -87,14 +88,30 @@ describe 'restaurant' do
 			expect(page).not_to have_content('Spitzweg')
 		end
 	end
+
+	xcontext 'profile page' do
+		before do
+		@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant',location: 'Neuss', price: 7, cuisine: 'French')
+		end
+
+		it 'has its own profile page' do 
+			visit "/restaurants/#{@restaurant.id}"
+			expect(page).to have_content('Spitzweg')
+			expect(page).to have_content('This is an awesome restaurant')
+			expect(page).to have_content('Neuss')
+			expect(page).to have_content('30£ per person')
+			expect(page).to have_content('French')
+		end
+
+	end
 end
 
 describe 'restaurant ratings' do
 	context 'display average rating' do 
 		before do 
 			@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant')
-			user = create(:user)	
-	  		login_as(user, :scope => :user)
+			user1 = create(:user1)	
+	  		login_as(user1, :scope => :user)
 		end
 
 		it 'displays an average rating in form of stars' do 

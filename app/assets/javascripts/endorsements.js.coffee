@@ -6,5 +6,7 @@ $(document).ready ->
 	$('.endorsement-link').on 'click', (event) ->
 		event.preventDefault()
 		endorsementCount = $(this).siblings '.endorsement-count'
-		$.post this.href, (response) ->
-			endorsementCount.text response.new_endorsement_count
+		$.ajax this.href,
+			type: 'POST'
+			success: (response) ->
+				endorsementCount.text response.new_endorsement_count

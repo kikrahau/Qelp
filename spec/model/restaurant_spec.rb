@@ -29,14 +29,10 @@ RSpec.describe Restaurant, type: :model do
 		context 'several reviews' do 
 			it 'returns the average of all ratings' do 
 				restaurant = Restaurant.create(name: "Ethel's Steak House")
-				restaurant.reviews.create(rating: 4)
-				restaurant.reviews.create(rating: 2)
+				restaurant.reviews.create(rating: 4, user_id: 1)
+				restaurant.reviews.create(rating: 2, user_id: 2)
 				expect(restaurant.average_rating).to eq 3
 			end
 		end
-
-		context ''
-
-
 	end
 end
