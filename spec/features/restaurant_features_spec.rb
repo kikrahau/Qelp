@@ -2,7 +2,6 @@ require 'rails_helper'
 require_relative '../helpers/application_helper'
 # >>> Debugging = save_and_open_page
 
-
 describe 'restaurant' do
 
 	context 'without any restaurants created' do 
