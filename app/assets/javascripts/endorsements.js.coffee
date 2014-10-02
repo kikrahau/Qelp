@@ -10,3 +10,4 @@ $(document).ready ->
 			type: 'POST'
 			success: (response) ->
 				endorsementCount.text response.new_endorsement_count
+				$('.notice').text response.notice
