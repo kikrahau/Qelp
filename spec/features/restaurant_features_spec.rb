@@ -97,7 +97,7 @@ describe 'restaurant' do
 		end
 	end
 
-	xcontext 'profile page' do
+	context 'profile page' do
 		before do
 		@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant',location: 'Neuss', price: 7, cuisine: 'French')
 		end
@@ -127,5 +127,16 @@ describe 'restaurant ratings' do
 			visit '/restaurants'
 			expect(page).to have_content '★★★★☆'
 		end
+	end
+end
+
+describe 'restaurant price' do
+	before do 
+		@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant', price: 15)
+	end
+
+	it 'displays the price category of the restaurant in form of pounds' do 
+		visit "/restaurants/#{@restaurant.id}"
+		expect(page).to have_content '££'
 	end
 end

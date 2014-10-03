@@ -77,8 +77,15 @@ describe 'restaurant reviews' do
 			visit "/restaurants/#{@restaurant.id}"
 			leave_review('horrible stuff, will never eat there again',1)
 			within(:css, '.review:first-of-type') do
-				expect(page).to have_content 'ethel@factorygirl.com'
+			expect(page).to have_content 'ethel@factorygirl.com'
 			end
 		end
+
+		it 'displays the avatar of the user next to the review' do 
+			visit "/restaurants/#{@restaurant.id}"
+			leave_review('horrible stuff, will never eat there again',1)
+			expect(page).to have_css('img')
+		end
+
 	end
 end

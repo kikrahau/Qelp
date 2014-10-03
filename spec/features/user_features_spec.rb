@@ -2,10 +2,6 @@ require 'rails_helper'
 
 describe 'user ' do 
 	context 'user signs up' do
-		
-		before do
-		  user = User.create email: 'ethel@gmail.com', password: '12345678', password_confirmation: '12345678'
-		end
 
 		it 'has a sign up form' do 
 			visit '/restaurants'
@@ -14,14 +10,15 @@ describe 'user ' do
 			fill_in('Password', with: 'password')
 			fill_in('Password confirmation', with: 'password')
 			click_button('Sign up')
-			expect(page).to have_content('Welcome! You have signed up successfully.')
+			expect(page).to have_content('You have signed up successfully.')
 		end
 
-		it 'has a sign in form' do 
+		it 'has a sign in form' do
+			user1 = create(:user1)	
 			visit '/restaurants'
 			click_link('Login')
-			fill_in('Email', with: 'ethel@gmail.com')
-			fill_in('Password', with: '12345678')
+			fill_in('Email', with: 'ethel@factorygirl.com')
+			fill_in('Password', with: 'f4k3p455w0rd')
 			click_button('Log in')
 			expect(page).to have_content('Signed in successfully.')
 		end
@@ -30,6 +27,23 @@ describe 'user ' do
 			visit '/restaurants'
 			click_link('Login')
 			expect(page).to have_content('Sign in with Facebook')
+		end
+
+		it 'can choose to have an avatar, when signing up' do 
+			visit '/restaurants'
+			click_link('Register')
+			expect(page).to have_field('user[image]')
+		end
+
+		it 'can have a username' do 
+			visit '/restaurants'
+			fill_in('Email', with: 'Ethel123supergirl@gmail.com')
+			fill_in('Name', with: 'Ethel Ng')
+			fill_in('Password', with: 'password')
+			fill_in('Password confirmation', with: 'password')
+			click_button('Sign up')
+			click_link('Register')
+			expect(page).to have_field('Welcome Ethel')
 		end
 
 	end

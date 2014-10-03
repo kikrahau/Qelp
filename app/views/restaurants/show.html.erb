@@ -1,13 +1,15 @@
 <h1><%=@restaurant.name %></h1>
 <p><%=@restaurant.description %></p>
 <p>Average Rating &nbsp;<%= star_rating(@restaurant.average_rating) %></p>
+<p class="price-category"><%= price_category_pound(@restaurant.price_category) %></p>
+
 
 
 <% if !@restaurant.reviews.any? %>
 	<p>No reviews</p>
 <% else %>
 	<% @restaurant.reviews.each do |review|%>
-	<li class='review'><%= star_rating(review.rating) %> <%= review.content%><i>  - posted by <%= User.find(review.user_id).email %> <%= time_ago_in_words(review.created_at) %> ago</i> <%= link_to 'Endorse', review_endorsements_path(review), class: 'endorsement-link' %> 
+	<li class='review'><%= image_tag User.find(review.user_id).image.url(:thumb) %><%= star_rating(review.rating) %> <%= review.content%><i>  - posted by <%= User.find(review.user_id).email %>  <%= time_ago_in_words(review.created_at) %> ago</i> <%= link_to 'Endorse', review_endorsements_path(review), class: 'endorsement-link' %> 
 		<span class='endorsement-count'> <%= pluralize(review.endorsements.count, "endorsement") %> 
 		</span> 
 		</li>
