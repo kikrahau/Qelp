@@ -42,22 +42,22 @@ RSpec.describe Restaurant, type: :model do
 			expect(restaurant.price_category).to eq 'No price category given'
 		end
 
-		it 'is in the price category, when having an average price per meal of 1-10£' do
+		it 'is in the price category "£", when having an average price per meal of 1-10£' do
 			restaurant = Restaurant.create(name: "Ethel's Steak House", price: 10)
 			expect(restaurant.price_category).to eq 1
 		end
 
-		it 'is in the price category, when having an average price per meal of 11-20£' do
+		it 'is in the price category "££", when having an average price per meal of 11-20£' do
 			restaurant = Restaurant.create(name: "Ethel's Steak House", price: 20)
 			expect(restaurant.price_category).to eq 2
 		end
 
-		it 'is in the price category, when having an average price per meal of 21-31£' do
+		it 'is in the price category "£££", when having an average price per meal of 21-31£' do
 			restaurant = Restaurant.create(name: "Ethel's Steak House", price: 31)
 			expect(restaurant.price_category).to eq 3
 		end
 
-		it 'is in the price category, when having an average price per meal of 32-100£' do
+		it 'is in the price category "££££", when having an average price per meal of 32-100£' do
 			restaurant = Restaurant.create(name: "Ethel's Steak House", price: 32)
 			expect(restaurant.price_category).to eq 4
 		end

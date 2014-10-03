@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit( :image, :name, :email, :password ) }
-    # devise_parameter_sanitizer.for(:sign_up) << :image
-
   end
   protect_from_forgery with: :exception
 end

@@ -66,6 +66,13 @@ describe 'restaurant' do
 			click_button('Create')
 			expect(page).to have_content('Name is too short')
 		end
+
+		xit 'has a back link, to the page, which was visited before' do 
+			visit '/restaurants'
+			click_link('Create restaurant')
+			click_link("Back")
+			expect(page).to have_path('/restaurants')
+		end
 	end
 
 	context 'editing restaurants' do
@@ -99,7 +106,7 @@ describe 'restaurant' do
 
 	context 'profile page' do
 		before do
-		@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant',location: 'Neuss', price: 7, cuisine: 'French')
+		@restaurant = Restaurant.create(name: 'Spitzweg', description: 'This is an awesome restaurant',location: 'Neuss', price: 15, cuisine: 'French')
 		end
 
 		it 'has its own profile page' do 
@@ -107,7 +114,7 @@ describe 'restaurant' do
 			expect(page).to have_content('Spitzweg')
 			expect(page).to have_content('This is an awesome restaurant')
 			expect(page).to have_content('Neuss')
-			expect(page).to have_content('30£ per person')
+			expect(page).to have_content('££')
 			expect(page).to have_content('French')
 		end
 

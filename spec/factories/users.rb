@@ -9,13 +9,13 @@ FactoryGirl.define do
 
   	factory :user2 do
     	email 'vinc@factoryboy.com'
-      name 'Ethel'
+      name 'Vinc'
     	password '12345678'
   	end
 
   	factory :user3 do
   		email 'vincent@factoryboy.com'
-      name 'Ethel'
+      name 'Vincent'
     	password '12345678'
   	end
   end

@@ -37,13 +37,13 @@ describe 'user ' do
 
 		it 'can have a username' do 
 			visit '/restaurants'
+			click_link('Register')
 			fill_in('Email', with: 'Ethel123supergirl@gmail.com')
-			fill_in('Name', with: 'Ethel Ng')
+			fill_in('user[name]', with: 'Ethel Ng')
 			fill_in('Password', with: 'password')
 			fill_in('Password confirmation', with: 'password')
 			click_button('Sign up')
-			click_link('Register')
-			expect(page).to have_field('Welcome Ethel')
+			expect(page).to have_content('Welcome Ethel')
 		end
 
 	end
