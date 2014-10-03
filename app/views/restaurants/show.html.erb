@@ -15,11 +15,12 @@
 		<h2>Reviews</h2>
 
 		<% @restaurant.reviews.each do |review|%>
-
-			<li class='review'><%= image_tag User.find(review.user_id).image.url(:thumb) %>
-				<i><%= User.find(review.user_id).email %></i>   
+			<aside class="user-info">
+			<li class='review'><%= image_tag User.find(review.user_id).image.url(:thumb) %></br>
+				<a href=""><%= User.find(review.user_id).name %></a></br>
+				<i><%= pluralize(User.find(review.user_id).reviews.count, 'reviews') %> </i>
 			</li>
-
+			</aside>
 				<div class="review-wrapper">
 				<u>
 					<%= star_rating(review.rating) %> 

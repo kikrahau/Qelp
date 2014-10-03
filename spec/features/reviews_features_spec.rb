@@ -73,11 +73,11 @@ describe 'restaurant reviews' do
 	  		login_as(user1, :scope => :user)
 		end
 
-		it 'displays the email of the user next to the review' do 
+		it 'displays the username of the user next to the review' do 
 			visit "/restaurants/#{@restaurant.id}"
 			leave_review('horrible stuff, will never eat there again',1)
 			within(:css, '.review:first-of-type') do
-			expect(page).to have_content 'ethel@factorygirl.com'
+			expect(page).to have_content 'Ethel'
 			end
 		end
 
@@ -85,6 +85,12 @@ describe 'restaurant reviews' do
 			visit "/restaurants/#{@restaurant.id}"
 			leave_review('horrible stuff, will never eat there again',1)
 			expect(page).to have_css('img')
+		end
+
+		it 'displays the amount of reviews, the user has written' do 
+			visit "/restaurants/#{@restaurant.id}"
+			leave_review('horrible stuff, will never eat there again',1)
+			expect(page).to have_content '1 review'
 		end
 
 	end
