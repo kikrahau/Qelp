@@ -17,8 +17,4 @@ class EndorsementsController < ApplicationController
 			render json: {notice: "Please sign in, before endorsing a review." }
 		end
 	end
-
-	def index
-		create
-	end
 end
