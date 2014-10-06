@@ -118,6 +118,11 @@ describe 'restaurant' do
 			expect(page).to have_content('French')
 		end
 
+		it 'has a map displayed on the page' do 
+			visit "/restaurants/#{@restaurant.id}"
+			expect(page).to have_css('#map')
+		end
+
 	end
 end
 

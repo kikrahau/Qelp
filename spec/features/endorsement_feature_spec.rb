@@ -26,10 +26,11 @@ describe 'endorsements' do
 			user2 = create(:user2)
 			login_as(user2, scope: :user)
 			visit "/restaurants/#{@restaurant.id}"
-			click_link 'Endorse'
+			click_link 'Endorse it!'
 			user3 = create(:user3)
 			login_as(user3, scope: :user)
-			click_link 'Endorse'
+			visit "/restaurants/#{@restaurant.id}"
+			click_link 'Endorse it!'
 			expect(page).to have_content("2 endorsements")
 		end
 
@@ -37,8 +38,9 @@ describe 'endorsements' do
 			user2 = create(:user2)
 			login_as(user2, scope: :user)
 			visit "/restaurants/#{@restaurant.id}"
-			click_link 'Endorse'
-			click_link 'Endorse'
+			click_link 'Endorse it!'
+			visit "/restaurants/#{@restaurant.id}"
+			click_link 'Endorse it!'
 			expect(page).to have_content("1 endorsement")
 			expect(page).to have_content("Can only endorse a review once")
 		end

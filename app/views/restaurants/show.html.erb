@@ -1,9 +1,11 @@
 <section class="restaurant-details">
 	<h1><%=@restaurant.name %></h1>
 	<p><%=@restaurant.description %></p>
-	<p>Average Rating &nbsp;<%= star_rating(@restaurant.average_rating) %></p>
-	<p><%=@restaurant.location %> | <%=@restaurant.cuisine %> | <%= price_category_pound(@restaurant.price_category) %>
+	<p><%= star_rating(@restaurant.average_rating) %>&nbsp;<%= pluralize(@restaurant.reviews.count, 'reviews') %></p>
+	<p><%= price_category_pound(@restaurant.price_category) %> | <%=@restaurant.location %> | <%=@restaurant.cuisine %> 
 	</p>
+	<p><%= link_to 'Leave Review', new_restaurant_review_path(@restaurant) %></p>
+	<div id="map"></div>
 </section>
 <section class="reviews">
 	<% if !@restaurant.reviews.any? %>
@@ -35,11 +37,10 @@
 					</span>
 					</div>
 				</div> 
-			
+		
 		<% end %>
 
 	<% end %>
 
 </section>
 
-<p><%= link_to 'Leave Review', new_restaurant_review_path(@restaurant) %></p>
