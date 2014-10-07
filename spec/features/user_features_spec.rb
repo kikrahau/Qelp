@@ -35,17 +35,6 @@ describe 'user ' do
 			expect(page).to have_field('user[image]')
 		end
 
-		it 'can have a username' do 
-			visit '/restaurants'
-			click_link('Register')
-			fill_in('Email', with: 'Ethel123supergirl@gmail.com')
-			fill_in('user[name]', with: 'Ethel Ng')
-			fill_in('Password', with: 'password')
-			fill_in('Password confirmation', with: 'password')
-			click_button('Sign up')
-			expect(page).to have_content('Welcome Ethel')
-		end
-
 	end
 
 	context 'restrictions for logged out users' do

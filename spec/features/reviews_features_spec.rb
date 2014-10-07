@@ -76,9 +76,7 @@ describe 'restaurant reviews' do
 		it 'displays the username of the user next to the review' do 
 			visit "/restaurants/#{@restaurant.id}"
 			leave_review('horrible stuff, will never eat there again',1)
-			within(:css, '.review:first-of-type') do
 			expect(page).to have_content 'Ethel'
-			end
 		end
 
 		it 'displays the avatar of the user next to the review' do 
@@ -90,7 +88,9 @@ describe 'restaurant reviews' do
 		it 'displays the amount of reviews, the user has written' do 
 			visit "/restaurants/#{@restaurant.id}"
 			leave_review('horrible stuff, will never eat there again',1)
-			expect(page).to have_content '1 review'
+			within(:css, "h1") do
+				expect(page).to have_content '1'
+			end
 		end
 
 	end

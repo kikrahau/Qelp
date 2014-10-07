@@ -1,3 +1,4 @@
+<section class="col-xs-8 col-xs-offset-2">
 <%if @restaurant.errors.any? %>
 <section id="errors_explanation">
 	<p>
@@ -10,18 +11,31 @@
 	</ul>
 </section>
 <%end%>
-<%= form_for @restaurant, :html => { :multipart => true } do |f| %>
-  <%= f.label :name%>
-  <%= f.text_field :name %>
-  <%= f.label :description %>
-  <%= f.text_area :description, size: "60x12" %>
-  <%= f.label :cuisine%>
-  <%= f.text_field :cuisine %>
-  <%= f.label :location%>
-  <%= f.text_field :location %>
-  <%= f.label :Average_price_per_meal%>
-  <%= f.text_field :price %>
-  <%= f.file_field :image %>
-  <%= f.submit %>
+<%= form_for @restaurant, :html => { :multipart => true }, role: "form" do |f| %>
+  <div class="form-group">
+    <%= f.label :name%>
+    <%= f.text_field :name,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, size: "60x12",class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :cuisine%>
+    <%= f.text_field :cuisine,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :location%>
+    <%= f.text_field :location,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :Average_price_per_meal%>
+    <%= f.text_field :price,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.file_field :image %>
+     <div><%= f.submit class: "btn btn-default" %></div>
+  </div>
 <% end %>
 <%= link_to "Back", :back %>
+</section>

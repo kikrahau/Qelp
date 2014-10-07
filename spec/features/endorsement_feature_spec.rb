@@ -3,7 +3,7 @@ require_relative '../helpers/application_helper'
 
 
 describe 'endorsements' do 
-	xcontext 'endorsing reviews' do 
+	context 'endorsing reviews' do 
 		before do 
 			@restaurant = Restaurant.create(name: "Spitzweg")
 			user1 = create(:user1)	

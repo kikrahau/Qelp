@@ -1,17 +1,17 @@
-<h1> "Welcome Ethel</h1>
+<section class="col-xs-8 col-xs-offset-2">
+<%= link_to 'Create restaurant', new_restaurant_path %>
 <%if @restaurants.any? %>
 	<%@restaurants.each do |restaurant| %>
-		<ul class="restaurant">
-			 <li class="name"> <%=link_to restaurant.name, restaurant_path(restaurant)%></li>
-			 <%= image_tag restaurant.image.url(:thumb) %>
-		<li class="description"><%= restaurant.description %></li>
-		<li class="rating"><%= star_rating(restaurant.average_rating) %></li>
-		<%= button_to 'Edit' , edit_restaurant_path(restaurant), method: :get%>
-		<%= button_to 'Delete' , restaurant_path(restaurant), method: :delete%>
-		</ul>
+			 <h1 class="restaurant-name"> <%=link_to restaurant.name, restaurant_path(restaurant)%></h1>
+			 <hr>
+			 <%= image_tag restaurant.image.url(:medium) %>
+		<p class="description"><%= restaurant.description %></p>
+		<p class="rating"><%= star_rating(restaurant.average_rating) %></p>
+		<div class="buttons"><%= button_to 'Edit' , edit_restaurant_path(restaurant), method: :get, class: "btn btn-default"%>
+		<%= button_to 'Delete' , restaurant_path(restaurant), method: :delete, class: "btn btn-default"%></div>
 	<%end%>
 <%else %>
 	<h1>No restaurants</h1>
 <%end%>
 
-<%= link_to 'Create restaurant', new_restaurant_path %>
+</section>

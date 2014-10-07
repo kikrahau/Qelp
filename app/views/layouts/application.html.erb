@@ -7,16 +7,28 @@
 </head>
 <body>
 
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Qelp</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+		 <%= render 'devise/menu/registration_items' %>
+		 <%= render 'devise/menu/login_items' %>
+      </ul>
+    </div>
+  </div>
+</div>
+<main class="container">
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
+	<%= yield %>
+<%= render 'restaurants/footer_vinc' %>
+</main>ls
 
-<ul class="hmenu">
-  <%= render 'devise/menu/redirect_items' %>
-  <%= render 'devise/menu/registration_items' %>
-  <%= render 'devise/menu/login_items' %>
-</ul>
-<%= yield %>
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>
+

@@ -1,43 +1,56 @@
-<section class="restaurant-details">
-	<h1><%=@restaurant.name %></h1>
-	<p><%=@restaurant.description %></p>
-	<p><%= star_rating(@restaurant.average_rating) %>&nbsp;<%= pluralize(@restaurant.reviews.count, 'reviews') %></p>
+<section class="col-xs-8 col-xs-offset-2">
+	<h1><%=@restaurant.name %> &nbsp;<span class="star-rating"><%= star_rating(@restaurant.average_rating)%></span> <button class="btn btn-sm btn-primary"type="button" class="btn btn-default btn-lg">
+  <%= @restaurant.reviews.count %> &nbsp;<span class="glyphicon glyphicon-comment"></span>
+</button> </h1>
+	<hr>
+	<p><%=@restaurant.description %></p></p>
 	<p><%= price_category_pound(@restaurant.price_category) %> | <%=@restaurant.location %> | <%=@restaurant.cuisine %> 
 	</p>
 	<p><%= link_to 'Leave Review', new_restaurant_review_path(@restaurant) %></p>
-	<div id="map"></div>
+		<div id="map"></div>
+
 </section>
 <section class="reviews">
 	<% if !@restaurant.reviews.any? %>
-
-		<p>No reviews</p>
-
+		<div class="col-xs-8 col-xs-offset-2">
+			<p>No reviews</p>
+			<hr>
+		</div>
 	<% else %>
-
-		<h2>Reviews</h2>
-
+		<div class="col-xs-8 col-xs-offset-2">
+			<h2>Reviews</h2>
+			<hr>
+		</div>
 		<% @restaurant.reviews.each do |review|%>
-			<aside class="user-info">
-			<li class='review'><%= image_tag User.find(review.user_id).image.url(:thumb) %></br>
-				<a href=""><%= User.find(review.user_id).name %></a></br>
-				<i><%= pluralize(User.find(review.user_id).reviews.count, 'reviews') %> </i>
-			</li>
-			</aside>
-				<div class="review-wrapper">
-				<u>
-					<%= star_rating(review.rating) %> 
-					<%= time_ago_in_words(review.created_at) %> ago
-				</u>
-				</br></br>
-				<%= review.content%></br></br>
-				<div>
-					Like the review...?
-					<%= link_to 'Endorse it!', review_endorsements_path(review), class: 'endorsement-link' %> </br>
-					<span class='endorsement-count'> <%= pluralize(review.endorsements.count, "endorsement") %> 
-					</span>
-					</div>
-				</div> 
-		
+			<div class="row carousel-row">
+		        <div class="col-xs-8 col-xs-offset-2 slide-row">
+		            <div id="carousel-1" class="carousel slide slide-carousel">
+		              <!-- Indicators -->
+		            
+		              <!-- Wrapper for slides -->
+		              <div class="carousel-inner">
+		                <div class="item active">
+		                	<%= image_tag User.find(review.user_id).image.url(:medium) %>
+		                </div>
+		              </div>
+		            </div>
+		            <div class="slide-content">
+		                <h4><%= User.find(review.user_id).name %></h4>
+		                <p><%= star_rating(review.rating) %>
+							<span class="time-ago"> <%= time_ago_in_words(review.created_at) %> ago</span>
+		                <p>
+		                	<hr>
+		                    <%= review.content%>
+		                </p>
+		            </div>
+		            <div class="slide-footer">
+		                <span class="pull-right buttons">
+							<%= link_to 'Endorse it!', review_endorsements_path(review), class: 'endorsement-link' %> 
+		                    <button class="btn btn-sm btn-primary" disabled> <%= review.endorsements.count %> </button>
+		                </span>
+		            </div>
+		        </div>
+		    </div>
 		<% end %>
 
 	<% end %>
